@@ -42,4 +42,14 @@ public class CarMovementController : MonoBehaviour
     public void SetRotation(float rotation) {
         targetRotation = rotation;
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if(LayerMask.NameToLayer("Clowns") == other.gameObject.layer) {
+            other.gameObject.GetComponentInParent<RagdollController>().Launch(GetLaunchDirection());
+        }
+    }
+
+    private Vector3 GetLaunchDirection() {
+        return (Vector3.up + (transform.right).normalized).normalized;
+    }
 }
