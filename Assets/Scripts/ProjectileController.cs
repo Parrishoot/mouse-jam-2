@@ -28,8 +28,12 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Car" && other.gameObject != spawnObject && !destroyed) {
             other.GetComponent<CarMovementController>().Clownsplosion();
-            destroyed = false;
-            Destroy(gameObject);
         }
+
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        destroyed = true;
+        Destroy(gameObject);    
     }
 }

@@ -33,7 +33,7 @@ public class PlayerCarMovementController : CarMovementController
         if(transform.eulerAngles.y != targetRotation) {
             transform.eulerAngles = new Vector3(0, targetRotation, 0);
         }
-        carRigidbody.AddForce(transform.right * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
+        carRigidbody.AddForce(transform.forward * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
     }
 
     public void SetRotation(float rotation) {
