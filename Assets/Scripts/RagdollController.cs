@@ -93,7 +93,7 @@ public class RagdollController : MonoBehaviour
     private IEnumerator SpawnLaunch(Vector3 launchDirection) {
         pickedUp = true;
         yield return new WaitForFixedUpdate();
-        launchRigidbody.AddForce(launchDirection * launchForce / 2);
+        launchRigidbody.AddForce(launchDirection * launchForce / 1.5f);
         yield return new WaitForSeconds(.5f);
         pickedUp = false;
         yield return null;
