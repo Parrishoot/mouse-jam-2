@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class WheelController : MonoBehaviour, IDragHandler, IBeginDragHandler
 {
     public float rotationBuffer = 80;
-    public CarMovementController carController;
+    public PlayerCarMovementController carController;
     private Vector2 pivot;
     private Vector2 lastPos;
 

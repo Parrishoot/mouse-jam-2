@@ -9,20 +9,28 @@ public class RagdollController : MonoBehaviour
 
     public float launchForce;
 
+    public bool spawned = true;
+
     private GameObject carObject;
 
     private bool pickedUp = false;
 
     private float pullSpeed = 8000f;
 
-    private float totalPushTime = .7f;
+    private float totalPushTime = .5f;
+
+    private float spawnCooldown = .5f;
 
     private float pushTime = 0f;
+
+    private bool destroyed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        DisableRigidBodies();
+        if(!spawned) {
+            DisableRigidBodies();
+        }
     }
 
     // Update is called once per frame
@@ -35,7 +43,6 @@ public class RagdollController : MonoBehaviour
 
     private void FixedUpdate() {
         if(IsBeingPulled()) {
-            Debug.Log("Pulled");
             launchRigidbody.AddForce(((carObject.transform.position - launchRigidbody.gameObject.transform.position).normalized * pullSpeed * Time.fixedDeltaTime), ForceMode.Impulse);
         }
     }
@@ -63,7 +70,7 @@ public class RagdollController : MonoBehaviour
     }
 
     private bool IsBeingPulled() {
-        return pickedUp && pushTime <= 0;
+        return pickedUp && pushTime <= 0 && carObject != null;
     }
 
     public bool IsFree() {
@@ -74,7 +81,26 @@ public class RagdollController : MonoBehaviour
         if(carObject == null) {
             return false;
         }
-        return carObject.Equals(car) && IsBeingPulled();
+        return carObject.Equals(car) && IsBeingPulled() && !destroyed;
     }
 
+    public void Init() {
+        float x = Random.Range(-1f, 1f);
+        float z = Random.Range(-1f, 1f);
+        StartCoroutine(SpawnLaunch(new Vector3(x, 1, z)));
+    }
+
+    private IEnumerator SpawnLaunch(Vector3 launchDirection) {
+        pickedUp = true;
+        yield return new WaitForFixedUpdate();
+        launchRigidbody.AddForce(launchDirection * launchForce / 2);
+        yield return new WaitForSeconds(.5f);
+        pickedUp = false;
+        yield return null;
+    }
+
+    public void Despawn() {
+        destroyed = true;
+        Destroy(gameObject);
+    }
 }
