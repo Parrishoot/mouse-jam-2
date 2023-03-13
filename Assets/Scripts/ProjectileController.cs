@@ -8,6 +8,10 @@ public class ProjectileController : MonoBehaviour
 
     public GameObject spawnObject;
 
+    public GameObject confettiPrefab;
+
+    public Transform confettiSpawnTransform;
+
     public Rigidbody projectileRigidbody;
 
     private Vector3 direction;
@@ -28,12 +32,18 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Car" && other.gameObject != spawnObject && !destroyed) {
             other.GetComponent<CarMovementController>().Clownsplosion();
+            Despawn();
         }
 
     }
 
     private void OnCollisionEnter(Collision other) {
+         Despawn();
+    }
+
+    private void Despawn() {
         destroyed = true;
-        Destroy(gameObject);    
+        Destroy(gameObject);
+        Instantiate(confettiPrefab, confettiSpawnTransform.position, Quaternion.identity);
     }
 }

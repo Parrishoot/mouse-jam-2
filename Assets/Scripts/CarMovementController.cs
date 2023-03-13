@@ -12,8 +12,6 @@ public class CarMovementController : MonoBehaviour
 
     public ClownCounter clownCounter;
 
-    public ParticleSystem confettiCannon;
-
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -39,7 +37,6 @@ public class CarMovementController : MonoBehaviour
     }
 
     public void Clownsplosion() {
-        confettiCannon.Play();
         int lostClowns = clownCounter.LoseClowns();
         peopleSpawner.SendInTheClowns(lostClowns);
     }

@@ -64,6 +64,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 10000
   spawnObject: {fileID: 0}
+  confettiPrefab: {fileID: 3197400884709740159, guid: dd743aa791a64b84887d40ed2aabf1e1, type: 3}
+  confettiSpawnTransform: {fileID: 3223234295989517925}
   projectileRigidbody: {fileID: 9153768909195541887}
 --- !u!1 &3692819610874799049
 GameObject:
