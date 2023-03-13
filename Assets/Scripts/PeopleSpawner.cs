@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PeopleSpawner : MonoBehaviour
 {
-
-    public int population = 5;
-
     public GameObject clownPrefab;
 
-    public void SendInTheClowns() {
-        for(int i = 0 ; i < population; i++) {
+    public void SendInTheClowns(int clownsDown) {
+        for(int i = 0 ; i < clownsDown; i++) {
             GameObject clown = Instantiate(clownPrefab, transform.position, Quaternion.identity);
             clown.GetComponent<RagdollController>().Init();
         }

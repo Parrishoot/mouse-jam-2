@@ -37,6 +37,6 @@ public class PlayerCarMovementController : CarMovementController
     }
 
     public void SetRotation(float rotation) {
-        targetRotation = rotation;
+        targetRotation = rotation + 90;
     }
 }

@@ -19,8 +19,6 @@ public class RagdollController : MonoBehaviour
 
     private float totalPushTime = .5f;
 
-    private float spawnCooldown = .5f;
-
     private float pushTime = 0f;
 
     private bool destroyed = false;

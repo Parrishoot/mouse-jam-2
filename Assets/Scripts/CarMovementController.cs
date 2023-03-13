@@ -49,6 +49,7 @@ public class CarMovementController : MonoBehaviour
 
     public void Clownsplosion() {
         confettiCannon.Play();
-        peopleSpawner.SendInTheClowns();
+        int lostClowns = clownCounter.LoseClowns();
+        peopleSpawner.SendInTheClowns(lostClowns);
     }
 }
