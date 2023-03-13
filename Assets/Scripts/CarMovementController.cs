@@ -10,10 +10,6 @@ public class CarMovementController : MonoBehaviour
 
     public PeopleSpawner peopleSpawner;
 
-    public GameObject projectilePrefab;
-
-    public Transform projectileSpawner;
-
     public ClownCounter clownCounter;
 
     public ParticleSystem confettiCannon;
@@ -40,11 +36,6 @@ public class CarMovementController : MonoBehaviour
 
     private Vector3 GetLaunchDirection() {
         return (Vector3.up + Vector3.up + (transform.forward)).normalized;
-    }
-
-    protected void Shoot() {
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpawner.position, Quaternion.identity);
-        projectile.GetComponent<ProjectileController>().Init(gameObject, transform.forward);
     }
 
     public void Clownsplosion() {

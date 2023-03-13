@@ -43,7 +43,7 @@ public class CarNavMesh : MonoBehaviour
             return;
         }
 
-        Transform closetCar = FindClosestObjectWithinRadius(carDetectionRadius, "Car");
+        Transform closetCar = FindClosestObjectWithinRadius(carDetectionRadius, "Player");
         if(closetCar != null) {
             wandering = false;
             targetPosition = closetCar.transform.position;
@@ -67,7 +67,7 @@ public class CarNavMesh : MonoBehaviour
             float closestDistance = Vector3.Distance(closestObject.transform.position, transform.position);
 
             foreach(Collider hit in hits) {
-                float objectDistance = Vector3.Distance(closestObject.transform.position, transform.position); 
+                float objectDistance = Vector3.Distance(transform.position, hit.gameObject.transform.position); 
                 if(objectDistance < closestDistance) {
                     closestObject = hit.gameObject;
                     closestDistance = objectDistance; 
@@ -86,9 +86,7 @@ public class CarNavMesh : MonoBehaviour
         NavMeshHit navHit;
            
         NavMesh.SamplePosition(randomDirection + transform.position, out navHit, wanderRadius, -1);
-           
-        Debug.Log(navHit.position);
-
+    
         return navHit.position;
     }
 }

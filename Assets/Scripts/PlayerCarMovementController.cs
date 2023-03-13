@@ -23,10 +23,6 @@ public class PlayerCarMovementController : CarMovementController
         else {
             movement = 0;
         }
-
-        if(Input.GetMouseButtonDown(1)) {
-            Shoot();
-        }
     }
 
     private void FixedUpdate() {
