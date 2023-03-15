@@ -7,9 +7,20 @@ public class RagdollController : MonoBehaviour
 
     public Rigidbody launchRigidbody;
 
+    public GameObject hips;
+
     public float launchForce;
 
     public bool spawned = true;
+
+    public float totalSleepTime = 4f;
+
+    public enum STATE {
+        RAGDOLL,
+        UP
+    }
+
+    public STATE ragdollState = STATE.RAGDOLL;
 
     private GameObject carObject;
 
@@ -21,6 +32,10 @@ public class RagdollController : MonoBehaviour
 
     private float pushTime = 0f;
 
+    private float sleepTime = 0f;
+
+    private bool ragdolled = true;
+
     private bool destroyed = false;
 
     // Start is called before the first frame update
@@ -28,14 +43,24 @@ public class RagdollController : MonoBehaviour
     {
         if(!spawned) {
             DisableRigidBodies();
+            
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(pushTime >= 0) {
-            pushTime -= Time.deltaTime; 
+        if(ragdolled) {
+            if(pushTime >= 0) {
+                pushTime -= Time.deltaTime; 
+            }
+
+            if(!pickedUp && sleepTime >= 0f) {
+                sleepTime -= Time.deltaTime;
+            }
+            else if(!pickedUp) {
+                DisableRigidBodies();
+            }
         }
     }
 
@@ -46,15 +71,31 @@ public class RagdollController : MonoBehaviour
     }
 
     public void EnableRigidBodies() {
+        GetComponent<Animator>().enabled = false;
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = false;
+            rb.velocity = Vector3.zero;
         }
+        sleepTime = totalSleepTime;
+        ragdolled = true;
     }
 
     public void DisableRigidBodies() {
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = true;
         }
+        GetComponent<Animator>().enabled = true;
+                
+        Vector3 originalHipsPosition = hips.transform.position;
+        transform.position = launchRigidbody.position;
+
+        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo)) {
+            transform.position = new Vector3(transform.position.x, hitInfo.point.y, transform.position.z);
+        }
+
+        hips.transform.position = originalHipsPosition;
+
+        ragdolled = false;
     }
 
     public void Launch(GameObject car, Vector3 direction) {
@@ -85,6 +126,7 @@ public class RagdollController : MonoBehaviour
     public void Init() {
         float x = Random.Range(-1f, 1f);
         float z = Random.Range(-1f, 1f);
+        EnableRigidBodies();
         StartCoroutine(SpawnLaunch(new Vector3(x, 1, z)));
     }
 
@@ -101,4 +143,5 @@ public class RagdollController : MonoBehaviour
         destroyed = true;
         Destroy(gameObject);
     }
+
 }

@@ -12,6 +12,14 @@ public class CarNavMesh : MonoBehaviour
 
     public float wanderRadius = 30f;
 
+    public enum TARGET_TYPE {
+        CLOWN,
+        CAR,
+        WANDER
+    }
+
+    public TARGET_TYPE targetType = TARGET_TYPE.CLOWN;
+
     private Vector3 targetPosition;
 
     private NavMeshAgent navMeshAgent;
@@ -36,10 +44,11 @@ public class CarNavMesh : MonoBehaviour
     private void FindTargets() {
 
         //do the raycast specifying the mask
-        Transform closetClown = FindClosestObjectWithinRadius(clownDetectionRadius, "Clowns");
+        Transform closetClown = FindClosestObjectWithinRadius(clownDetectionRadius, "ClownsTarget");
         if(closetClown != null) {
             wandering = false;
             targetPosition = closetClown.transform.position;
+            this.targetType = TARGET_TYPE.CLOWN;
             return;
         }
 
@@ -47,11 +56,13 @@ public class CarNavMesh : MonoBehaviour
         if(closetCar != null) {
             wandering = false;
             targetPosition = closetCar.transform.position;
+            this.targetType = TARGET_TYPE.CAR;
             return;
         }
 
         if((!navMeshAgent.pathPending && !navMeshAgent.hasPath) || wandering == false) {
             targetPosition = GetRandomReachablePoint();
+            this.targetType = TARGET_TYPE.WANDER;
             wandering = true;
         }
 
@@ -59,7 +70,7 @@ public class CarNavMesh : MonoBehaviour
 
     private Transform FindClosestObjectWithinRadius(float radius, string layerName) {
         List<Collider> hits = new List<Collider>(Physics.OverlapSphere (transform.position, radius, LayerMask.GetMask(layerName)));
-        hits.RemoveAll(x => x.transform.root.gameObject == transform.root.gameObject);
+        hits.RemoveAll(x => !ViableTarget(x.gameObject));
 
         if(hits.Count != 0) {
 
@@ -68,6 +79,7 @@ public class CarNavMesh : MonoBehaviour
 
             foreach(Collider hit in hits) {
                 float objectDistance = Vector3.Distance(transform.position, hit.gameObject.transform.position); 
+                bool reachable = navMeshAgent.CalculatePath(hit.gameObject.transform.position, new NavMeshPath());
                 if(objectDistance < closestDistance) {
                     closestObject = hit.gameObject;
                     closestDistance = objectDistance; 
@@ -88,5 +100,10 @@ public class CarNavMesh : MonoBehaviour
         NavMesh.SamplePosition(randomDirection + transform.position, out navHit, wanderRadius, -1);
     
         return navHit.position;
+    }
+
+    private bool ViableTarget(GameObject targetObject) {
+        return targetObject.transform.root.gameObject != transform.root.gameObject &&
+               navMeshAgent.CalculatePath(targetObject.transform.root.position, new NavMeshPath());
     }
 }

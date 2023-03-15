@@ -12,6 +12,10 @@ public class CarMovementController : MonoBehaviour
 
     public ClownCounter clownCounter;
 
+    public float shakeAmountOnHit = 0f;
+    public float shakeTimeOnHit = 0f;
+    
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -37,6 +41,7 @@ public class CarMovementController : MonoBehaviour
     }
 
     public void Clownsplosion() {
+        CinemachineShake.GetInstance().SetShake(shakeAmountOnHit, shakeTimeOnHit);
         int lostClowns = clownCounter.LoseClowns();
         peopleSpawner.SendInTheClowns(lostClowns);
     }

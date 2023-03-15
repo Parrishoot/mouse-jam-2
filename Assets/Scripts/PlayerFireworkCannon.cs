@@ -11,6 +11,7 @@ public class PlayerFireworkCannon : FireworkCannon
 
         if(Input.GetMouseButtonDown(1)) {
             Shoot();
+            CinemachineShake.GetInstance().SetShake(2, .3f);
         }
     }
 }

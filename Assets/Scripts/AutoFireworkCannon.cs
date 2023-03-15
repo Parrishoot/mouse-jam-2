@@ -8,11 +8,7 @@ public class AutoFireworkCannon : FireworkCannon
     public float lookaheadDistance = 10f;
     public float lookaheadBounds = 1f;
 
-    private Collider selfCollider;
-
-    void Start() {
-        selfCollider = GetComponentInParent<Collider>();
-    }
+    public Collider selfCollider;
 
     // Update is called once per frame
     public override void Update()

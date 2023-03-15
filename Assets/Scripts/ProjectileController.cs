@@ -31,7 +31,7 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Car" && other.gameObject != spawnObject && !destroyed) {
-            other.GetComponent<CarMovementController>().Clownsplosion();
+            other.transform.root.gameObject.GetComponent<CarMovementController>().Clownsplosion();
             Despawn();
         }
 
