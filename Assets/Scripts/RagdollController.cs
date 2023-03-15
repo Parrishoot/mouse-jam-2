@@ -58,9 +58,9 @@ public class RagdollController : MonoBehaviour
             if(!pickedUp && sleepTime >= 0f) {
                 sleepTime -= Time.deltaTime;
             }
-            else if(!pickedUp) {
-                DisableRigidBodies();
-            }
+            // else if(!pickedUp) {
+            //     DisableRigidBodies();
+            // }
         }
     }
 

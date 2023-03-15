@@ -10,6 +10,15 @@ public class ClownCounter : MonoBehaviour
 
     public int clownsLostOnHit = 5;
 
+    public enum ClownCarType {
+        YOU,
+        RED,
+        YELLOW,
+        PURPLE
+    }
+
+    public ClownCarType clownCarType;
+
     public void AddClown() {
         clownCount++;
     }
@@ -22,5 +31,9 @@ public class ClownCounter : MonoBehaviour
 
     public int GetClownCount() {
         return clownCount;
+    }
+
+    public string GetScoreText() {
+        return clownCarType.ToString() + ": " + clownCount.ToString();
     }
 }

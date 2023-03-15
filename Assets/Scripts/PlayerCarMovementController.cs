@@ -27,9 +27,11 @@ public class PlayerCarMovementController : CarMovementController
 
     private void FixedUpdate() {
         if(transform.eulerAngles.y != targetRotation) {
-            transform.eulerAngles = new Vector3(0, targetRotation, 0);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, targetRotation, transform.eulerAngles.z);
         }
-        carRigidbody.AddForce(transform.forward * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
+        if(movement != 0) {
+            carRigidbody.AddForce(transform.forward * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
+        }
     }
 
     public void SetRotation(float rotation) {
