@@ -24,7 +24,7 @@ public class CarMovementController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         if(LayerMask.NameToLayer("Clowns") == other.gameObject.layer) {
-            RagdollController controller = other.gameObject.GetComponentInParent<RagdollController>();
+            RagdollController controller = other.gameObject.transform.root.GetComponent<RagdollController>();
             
             if(controller.IsFree()) {
                 controller.Launch(gameObject, GetLaunchDirection());

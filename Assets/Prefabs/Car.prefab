@@ -5045,6 +5045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clownCount: 8
   clownsLostOnHit: 5
+  clownCarType: 0
 --- !u!1 &7764022419768340641
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,7 +5090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5479bcdcb9084840b852b5662100665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clownPrefab: {fileID: 961131837477656945, guid: 89ccff61f641fce40a074996d2e1a2ea, type: 3}
+  clownPrefab: {fileID: 3702113261189510450, guid: 618f88f59e45a2045a3f0d27f47ebaf2, type: 3}
 --- !u!1 &8976834157915086972
 GameObject:
   m_ObjectHideFlags: 0

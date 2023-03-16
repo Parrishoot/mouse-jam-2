@@ -22,9 +22,11 @@ public class RagdollController : MonoBehaviour
 
     public STATE ragdollState = STATE.RAGDOLL;
 
+    public Animator animator;
+
     private GameObject carObject;
 
-    private bool pickedUp = false;
+    public bool pickedUp = false;
 
     private float pullSpeed = 8000f;
 
@@ -41,10 +43,15 @@ public class RagdollController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if(!spawned) {
             DisableRigidBodies();
             
         }
+        else {
+            EnableRigidBodies();
+        }
+
     }
 
     // Update is called once per frame
@@ -58,9 +65,9 @@ public class RagdollController : MonoBehaviour
             if(!pickedUp && sleepTime >= 0f) {
                 sleepTime -= Time.deltaTime;
             }
-            // else if(!pickedUp) {
-            //     DisableRigidBodies();
-            // }
+            else if(!pickedUp) {
+                DisableRigidBodies();
+            }
         }
     }
 
@@ -71,7 +78,7 @@ public class RagdollController : MonoBehaviour
     }
 
     public void EnableRigidBodies() {
-        GetComponent<Animator>().enabled = false;
+        animator.enabled = false;
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = false;
             rb.velocity = Vector3.zero;
@@ -84,10 +91,12 @@ public class RagdollController : MonoBehaviour
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = true;
         }
-        GetComponent<Animator>().enabled = true;
+
+        
+        animator.enabled = true;
                 
         Vector3 originalHipsPosition = hips.transform.position;
-        transform.position = launchRigidbody.position;
+        animator.gameObject.transform.position = launchRigidbody.position;
 
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo)) {
             transform.position = new Vector3(transform.position.x, hitInfo.point.y, transform.position.z);
