@@ -1416,6 +1416,7 @@ MonoBehaviour:
   ragdollState: 0
   animator: {fileID: 2387505738844114474}
   pickedUp: 0
+  timeToResetTheBones: 1
   clownWanderer: {fileID: 1336290714904762212}
 --- !u!95 &2387505738844114474
 Animator:
