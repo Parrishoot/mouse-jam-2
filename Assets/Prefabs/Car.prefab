@@ -5090,7 +5090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5479bcdcb9084840b852b5662100665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clownPrefab: {fileID: 3702113261189510450, guid: 618f88f59e45a2045a3f0d27f47ebaf2, type: 3}
+  clownPrefab: {fileID: 5015766178450502465, guid: b269b5617e5ee9349829645dfee4d8ea, type: 3}
 --- !u!1 &8976834157915086972
 GameObject:
   m_ObjectHideFlags: 0

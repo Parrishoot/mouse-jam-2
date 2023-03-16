@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CarNavMesh : MonoBehaviour
+public class CarNavMesh : NavMeshWanderer
 {
 
     public float carDetectionRadius = 10f;
 
     public float clownDetectionRadius = 10f;
-
-    public float wanderRadius = 30f;
 
     public enum TARGET_TYPE {
         CLOWN,
@@ -22,15 +20,7 @@ public class CarNavMesh : MonoBehaviour
 
     private Vector3 targetPosition;
 
-    private NavMeshAgent navMeshAgent;
-
     private bool wandering = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -79,7 +69,6 @@ public class CarNavMesh : MonoBehaviour
 
             foreach(Collider hit in hits) {
                 float objectDistance = Vector3.Distance(transform.position, hit.gameObject.transform.position); 
-                bool reachable = navMeshAgent.CalculatePath(hit.gameObject.transform.position, new NavMeshPath());
                 if(objectDistance < closestDistance) {
                     closestObject = hit.gameObject;
                     closestDistance = objectDistance; 
@@ -90,16 +79,6 @@ public class CarNavMesh : MonoBehaviour
         }
 
         return null;
-    }
-
-    private Vector3 GetRandomReachablePoint() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * wanderRadius;
-           
-        NavMeshHit navHit;
-           
-        NavMesh.SamplePosition(randomDirection + transform.position, out navHit, wanderRadius, -1);
-    
-        return navHit.position;
     }
 
     private bool ViableTarget(GameObject targetObject) {

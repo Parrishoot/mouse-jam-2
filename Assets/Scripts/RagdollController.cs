@@ -28,6 +28,8 @@ public class RagdollController : MonoBehaviour
 
     public bool pickedUp = false;
 
+    public ClownWanderer clownWanderer;
+
     private float pullSpeed = 8000f;
 
     private float totalPushTime = .5f;
@@ -79,6 +81,7 @@ public class RagdollController : MonoBehaviour
 
     public void EnableRigidBodies() {
         animator.enabled = false;
+        clownWanderer.enabled = false;
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = false;
             rb.velocity = Vector3.zero;
@@ -91,8 +94,6 @@ public class RagdollController : MonoBehaviour
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>()) {
             rb.isKinematic = true;
         }
-
-        
         animator.enabled = true;
                 
         Vector3 originalHipsPosition = hips.transform.position;

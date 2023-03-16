@@ -30,7 +30,7 @@ public class PlayerCarMovementController : CarMovementController
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, targetRotation, transform.eulerAngles.z);
         }
         if(movement != 0) {
-            carRigidbody.AddForce(transform.forward * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
+            carRigidbody.AddForce(new Vector3(transform.forward.x, 0f, transform.forward.z) * movement * speed * Time.fixedDeltaTime, ForceMode.Impulse);    
         }
     }
 
