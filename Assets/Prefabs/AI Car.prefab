@@ -19,9 +19,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5882d3f7cda33e54e8118a47855f41d2, type: 2}
+    - target: {fileID: 1831192917000413877, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831192917000413877, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
+      propertyPath: maxVelocityForPitchOffset
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2062285754365412379, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2101985238201523182, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2138316013950145454, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
       propertyPath: m_Mesh
@@ -174,6 +186,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4405712887287367137, guid: 09c8dc50b902ff44ca57c519298f392b, type: 3}
   m_PrefabInstance: {fileID: 4576425988730092448}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3513672739486381566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190989257916071489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ede63cd766fce4c9b892a0523c4089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchOffset: 1.2
+  maxVelocityForPitchOffset: 10
 --- !u!114 &4314785120200103339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,9 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217febd1d40464d40bd4ec7f1f3d198a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wanderRadius: 20
   carDetectionRadius: 10
   clownDetectionRadius: 10
-  wanderRadius: 20
   targetType: 0
 --- !u!195 &8451639688204651279
 NavMeshAgent:

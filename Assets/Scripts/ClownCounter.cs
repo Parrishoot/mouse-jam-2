@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClownCounter : MonoBehaviour
+public class ClownCounter : MonoBehaviour, IComparable<ClownCounter>
 {
 
 
@@ -35,5 +36,14 @@ public class ClownCounter : MonoBehaviour
 
     public string GetScoreText() {
         return clownCarType.ToString() + ": " + clownCount.ToString();
+    }
+
+    public int CompareTo(ClownCounter other)
+    {
+        if(clownCount.Equals(other.clownCount)) {
+            return clownCarType == ClownCarType.YOU ? 1 : -1; 
+        }
+
+        return clownCount.CompareTo(other.clownCount);
     }
 }

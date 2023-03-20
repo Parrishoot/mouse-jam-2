@@ -15,6 +15,7 @@ public class CarMovementController : MonoBehaviour
     public float shakeAmountOnHit = 0f;
     public float shakeTimeOnHit = 0f;
     
+    public RandomSoundController crashSoundController;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -22,11 +23,12 @@ public class CarMovementController : MonoBehaviour
         carRigidbody = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
         if(LayerMask.NameToLayer("Clowns") == other.gameObject.layer) {
             RagdollController controller = other.gameObject.transform.root.GetComponent<RagdollController>();
             
             if(controller.IsFree()) {
+                crashSoundController.Play();
                 controller.Launch(gameObject, GetLaunchDirection());
             }
             else if(controller.IsPickedUpByThisCar(gameObject)) {
@@ -37,10 +39,11 @@ public class CarMovementController : MonoBehaviour
     }
 
     private Vector3 GetLaunchDirection() {
-        return (Vector3.up + Vector3.up + (transform.forward)).normalized;
+        return (Vector3.up + (transform.forward)).normalized;
     }
 
     public void Clownsplosion() {
+        crashSoundController.Play();
         CinemachineShake.GetInstance().SetShake(shakeAmountOnHit, shakeTimeOnHit);
         int lostClowns = clownCounter.LoseClowns();
         peopleSpawner.SendInTheClowns(lostClowns);

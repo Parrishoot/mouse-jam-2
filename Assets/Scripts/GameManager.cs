@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Start() {
         Time.timeScale = 0f;
+//        MusicManager.GetInstance().PlayMusic();
     }
 
     public void StartGame() {
@@ -33,7 +34,7 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame() {
         Time.timeScale = 0f;
-
+//        MusicManager.GetInstance().StopMusic();
         onGameEnd.Invoke();
     }
 }

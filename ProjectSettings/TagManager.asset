@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Car
   - Clown
+  - Floor
   layers:
   - Default
   - TransparentFX

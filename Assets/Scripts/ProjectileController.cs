@@ -38,7 +38,9 @@ public class ProjectileController : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-         Despawn();
+        if(other.gameObject.tag != "Floor") {
+            Despawn();
+        }
     }
 
     private void Despawn() {

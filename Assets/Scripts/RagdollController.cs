@@ -25,6 +25,8 @@ public class RagdollController : MonoBehaviour
 
     public Animator animator;
 
+    public RandomSoundController randomSoundController;
+
     private GameObject carObject;
 
     public bool pickedUp = false;
@@ -158,7 +160,7 @@ public class RagdollController : MonoBehaviour
             rb.isKinematic = false;
             rb.velocity = Vector3.zero;
         }
-        sleepTime = totalSleepTime;
+        sleepTime = totalSleepTime * Random.Range(.8f, 1.2f);
         ragdollState = STATE.RAGDOLL;
     }
 
@@ -173,6 +175,7 @@ public class RagdollController : MonoBehaviour
 
     public void Launch(GameObject car, Vector3 direction) {
         if(!pickedUp) {
+            randomSoundController.Play();
             pickedUp = true;
             pushTime = totalPushTime;
             EnableRigidBodies();
@@ -206,7 +209,7 @@ public class RagdollController : MonoBehaviour
     private IEnumerator SpawnLaunch(Vector3 launchDirection) {
         pickedUp = true;
         yield return new WaitForFixedUpdate();
-        launchRigidbody.AddForce(launchDirection * launchForce / 1.5f);
+        launchRigidbody.AddForce(launchDirection * launchForce);
         yield return new WaitForSeconds(.5f);
         pickedUp = false;
         yield return null;

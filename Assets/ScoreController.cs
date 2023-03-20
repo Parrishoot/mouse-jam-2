@@ -14,16 +14,23 @@ public class ScoreController : MonoBehaviour
 
     public TMP_Text winLose;
 
+    public AudioSource audioSource;
+
+    public AudioClip winClip;
+
+    public AudioClip loseClip;
+
     public void CollectScores() {
         List<ClownCounter> clownCounters = new List<ClownCounter>(GameObject.FindObjectsOfType<ClownCounter>());
-        List<ClownCounter> sortedClownCounters =  clownCounters.OrderBy(x => x.clownCount).ToList();
+        clownCounters.Sort();
 
-        lastPlace.text = sortedClownCounters[0].GetScoreText();
-        thirdPlace.text = sortedClownCounters[1].GetScoreText();
-        secondPlace.text = sortedClownCounters[2].GetScoreText();
-        firstPlace.text = sortedClownCounters[3].GetScoreText();
+        lastPlace.text = clownCounters[0].GetScoreText();
+        thirdPlace.text = clownCounters[1].GetScoreText();
+        secondPlace.text = clownCounters[2].GetScoreText();
+        firstPlace.text = clownCounters[3].GetScoreText();
 
-        winLose.text = sortedClownCounters[3].clownCarType == ClownCounter.ClownCarType.YOU ? "YOU WIN" : "YOU LOSE";
+        winLose.text = clownCounters[3].clownCarType == ClownCounter.ClownCarType.YOU ? "YOU WIN" : "YOU LOSE";
+        audioSource.clip = clownCounters[3].clownCarType == ClownCounter.ClownCarType.YOU ? winClip : loseClip;
     }
 
 }
